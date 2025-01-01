@@ -12,6 +12,24 @@ export default function UpdateCurrentLocation(props) {
   );
 
   useEffect(function () {
+    if (navigator.geolocation) {
+      // Get the current position of the user
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          // Fetch latitude and longitude from the position object
+          var latitude = position.coords.latitude;
+          var longitude = position.coords.longitude;
+          // Display the coordinates
+          setMapPosition([latitude, longitude]);
+        },
+        function (error) {
+          // Handle errors (e.g., permission denied)
+          console.error("Error getting location: " + error.message);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
     if (selectedAddress.location) {
       setMapPosition(selectedAddress.location);
     }
@@ -43,28 +61,6 @@ export default function UpdateCurrentLocation(props) {
     }
   }
 
-  // const [updatingAddress, setUpdatingAddress] = useState(false);
-  // const dispatch = useDispatch();
-  // async function setSelectedAddress() {
-  //   setUpdatingAddress(true);
-
-  //   const res = await fetch("http://localhost:4000/api/setSelectedAddress", {
-  //     method: "POST",
-  //     credentials: "include",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(addressInfo), // Send updated data as JSON
-  //   });
-  //   const response = await res.json();
-  //   console.log(response);
-  //   if (response.message === "success") {
-  //     dispatch({ type: "customer/selectedAddress", payload: addressInfo });
-  //     setTimeout(function updating() {
-  //       setUpdatingAddress(false);
-  //     }, 1000);
-  //   }
-  // }
   return (
     <>
       <div className="h-svh w-[100%] ">
