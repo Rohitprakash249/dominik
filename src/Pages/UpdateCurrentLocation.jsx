@@ -25,17 +25,18 @@ export default function UpdateCurrentLocation(props) {
 
     const newSelectedAddress = { ...selectedAddress, location: mapPosition };
 
-    const res = await fetch("http://localhost:4000/api/setSelectedAddress", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newSelectedAddress), // Send updated data as JSON
-    });
-    const response = await res.json();
-    console.log(response);
-    if (response.message === "success") {
+    // const res = await fetch("http://localhost:4000/api/setSelectedAddress", {
+    //   method: "POST",
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(newSelectedAddress), // Send updated data as JSON
+    // });
+    // const response = await res.json();
+    const response = "success";
+
+    if (response === "success") {
       setTimeout(function () {
         setUpdatingLocation(false);
       }, 1000);
